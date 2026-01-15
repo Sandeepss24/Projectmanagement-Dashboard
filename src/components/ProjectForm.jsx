@@ -136,7 +136,7 @@ const ProjectForm = () => {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-4 sm:space-y-6 pt-16 lg:pt-0">
+    <div className="w-full mx-auto space-y-4 sm:space-y-6 pt-16 lg:pt-0">
 
       {/* Header */}
       <div className="flex items-center justify-between gap-4">

@@ -9,11 +9,12 @@ import {
   FiSettings,
   FiMenu
 } from "react-icons/fi";
+import { MdOutlineCreateNewFolder } from "react-icons/md";
 
 const menu = [
   { name: "Dashboard", path: "/", icon: <FiHome /> },
   { name: "Projects", path: "/projects", icon: <FiFolder /> },
-  { name: "ProjectForm", path: "/projectform", icon: <FiFolder /> },
+  { name: "Creat Project", path: "/projectform", icon: <MdOutlineCreateNewFolder /> },
   { name: "Tasks", path: "/tasks", icon: <FiCheckSquare /> },
   { name: "Reminders", path: "/reminders", icon: <FiBell /> },
   { name: "Team", path: "/team", icon: <FiUsers /> },
@@ -69,7 +70,6 @@ const Sidebar = () => {
             </div>
             <div className="min-w-0">
               <h1 className="font-bold text-base text-slate-800 truncate">Project Manager</h1>
-              <p className="text-xs text-slate-500 truncate">Manage with ease</p>
             </div>
           </div>
 

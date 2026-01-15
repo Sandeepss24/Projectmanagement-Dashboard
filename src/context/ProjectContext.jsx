@@ -12,7 +12,7 @@ export const useProjects = () => {
 };
 
 export const ProjectProvider = ({ children }) => {
-    const [projects, setProjects] = useState(ProjectData);
+    const [projects, setProjects] = useState(ProjectData.map(p => ({ ...p, tasks: [] })));
 
     const addProject = (projectData) => {
         const newProject = {
@@ -27,6 +27,7 @@ export const ProjectProvider = ({ children }) => {
             description: projectData.description,
             startDate: projectData.startDate,
             manager: projectData.manager,
+            tasks: [],
         };
 
         setProjects([...projects, newProject]);
@@ -62,6 +63,64 @@ export const ProjectProvider = ({ children }) => {
         return projects.find(p => p.id === parseInt(id));
     };
 
+    // Task management functions
+    const addTask = (projectId, taskData) => {
+        setProjects(projects.map(p => {
+            if (p.id === parseInt(projectId)) {
+                const newTask = {
+                    id: p.tasks.length > 0 ? Math.max(...p.tasks.map(t => t.id)) + 1 : 1,
+                    ...taskData,
+                    createdAt: new Date().toISOString(),
+                };
+                const updatedTasks = [...p.tasks, newTask];
+                const doneTasks = updatedTasks.filter(t => t.status === "Done").length;
+
+                return {
+                    ...p,
+                    tasks: updatedTasks,
+                    totalTasks: updatedTasks.length,
+                    completedTasks: doneTasks,
+                };
+            }
+            return p;
+        }));
+    };
+
+    const updateTaskStatus = (projectId, taskId, newStatus) => {
+        setProjects(projects.map(p => {
+            if (p.id === parseInt(projectId)) {
+                const updatedTasks = p.tasks.map(t =>
+                    t.id === taskId ? { ...t, status: newStatus } : t
+                );
+                const doneTasks = updatedTasks.filter(t => t.status === "Done").length;
+
+                return {
+                    ...p,
+                    tasks: updatedTasks,
+                    completedTasks: doneTasks,
+                };
+            }
+            return p;
+        }));
+    };
+
+    const deleteTask = (projectId, taskId) => {
+        setProjects(projects.map(p => {
+            if (p.id === parseInt(projectId)) {
+                const updatedTasks = p.tasks.filter(t => t.id !== taskId);
+                const doneTasks = updatedTasks.filter(t => t.status === "Done").length;
+
+                return {
+                    ...p,
+                    tasks: updatedTasks,
+                    totalTasks: updatedTasks.length,
+                    completedTasks: doneTasks,
+                };
+            }
+            return p;
+        }));
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -70,6 +129,9 @@ export const ProjectProvider = ({ children }) => {
                 updateProject,
                 deleteProject,
                 getProjectById,
+                addTask,
+                updateTaskStatus,
+                deleteTask,
             }}
         >
             {children}

@@ -1,11 +1,15 @@
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { FiArrowLeft, FiCalendar, FiUsers, FiCheckCircle, FiClock, FiEdit } from "react-icons/fi";
+import { FiArrowLeft, FiCalendar, FiUsers, FiCheckCircle, FiClock, FiEdit, FiPlus } from "react-icons/fi";
 import { useProjects } from "../context/ProjectContext";
+import TaskModal from "../components/TaskModal";
+import TaskList from "../components/TaskList";
 
 const ProjectDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { getProjectById } = useProjects();
+  const { getProjectById, addTask, updateTaskStatus, deleteTask } = useProjects();
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
 
   // Find project by id
   const project = getProjectById(id);
@@ -15,7 +19,7 @@ const ProjectDetails = () => {
       <div className="flex items-center justify-center h-96 pt-16 lg:pt-0">
         <div className="text-center">
           <p className="text-slate-600 text-lg">Project not found</p>
-          <button
+          <button 
             onClick={() => navigate("/projects")}
             className="mt-4 text-blue-600 hover:underline"
           >
@@ -26,7 +30,7 @@ const ProjectDetails = () => {
     );
   }
 
-  const completion = project.totalTasks > 0
+  const completion = project.totalTasks > 0 
     ? Math.round((project.completedTasks / project.totalTasks) * 100)
     : 0;
 
@@ -42,6 +46,37 @@ const ProjectDetails = () => {
     Medium: "bg-amber-100 text-amber-700 border-amber-200",
     High: "bg-red-100 text-red-700 border-red-200",
   };
+
+  const handleAddTask = (taskData) => {
+    addTask(id, taskData);
+  };
+
+  const handleUpdateTaskStatus = (taskId, newStatus) => {
+    updateTaskStatus(id, taskId, newStatus);
+  };
+
+  const handleDeleteTask = (taskId) => {
+    if (window.confirm("Are you sure you want to delete this task?")) {
+      deleteTask(id, taskId);
+    }
+  };
+
+  // Get assignee names from project
+  const assigneeNames = project.assignees.map(abbr => {
+    const names = {
+      'SS': 'Sarah Smith',
+      'AK': 'Alice Kumar',
+      'RM': 'Robert Miller',
+      'JP': 'John Peterson',
+      'AL': 'Alice',
+      'BO': 'Bob',
+      'CH': 'Charlie',
+      'DA': 'David',
+      'EM': 'Emma',
+      'FR': 'Frank',
+    };
+    return names[abbr] || abbr;
+  });
 
   return (
     <div className="w-full space-y-6 pt-16 lg:pt-0">
@@ -60,7 +95,7 @@ const ProjectDetails = () => {
           </h1>
           <p className="text-slate-500 text-sm mt-1">Project Details & Progress</p>
         </div>
-        <button
+        <button 
           onClick={() => navigate(`/projectform/${id}`)}
           className="px-4 py-2 bg-white border-2 border-slate-200 text-slate-700 rounded-xl font-medium hover:bg-slate-50 transition-all flex items-center gap-2"
         >
@@ -175,11 +210,31 @@ const ProjectDetails = () => {
                 />
               </div>
               <p className="text-xs text-slate-500">
-                {project.totalTasks > 0
+                {project.totalTasks > 0 
                   ? `${project.totalTasks - project.completedTasks} tasks remaining to complete this project`
                   : "No tasks assigned yet"}
               </p>
             </div>
+          </div>
+
+          {/* Tasks Section */}
+          <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-slate-800">Tasks</h2>
+              <button
+                onClick={() => setIsTaskModalOpen(true)}
+                className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium text-sm shadow-lg shadow-blue-500/30 hover:shadow-xl transition-all flex items-center gap-2"
+              >
+                <FiPlus size={16} />
+                <span>Add Task</span>
+              </button>
+            </div>
+
+            <TaskList
+              tasks={project.tasks || []}
+              onDeleteTask={handleDeleteTask}
+              onUpdateTaskStatus={handleUpdateTaskStatus}
+            />
           </div>
 
         </div>
@@ -200,7 +255,7 @@ const ProjectDetails = () => {
                     {member}
                   </div>
                   <div>
-                    <p className="font-medium text-slate-800">Team Member {member}</p>
+                    <p className="font-medium text-slate-800">{assigneeNames[index]}</p>
                     <p className="text-xs text-slate-500">Developer</p>
                   </div>
                 </div>
@@ -212,7 +267,10 @@ const ProjectDetails = () => {
           <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
             <h2 className="text-lg font-semibold text-slate-800 mb-4">Quick Actions</h2>
             <div className="space-y-2">
-              <button className="w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-medium shadow-lg shadow-blue-500/30 hover:shadow-xl transition-all">
+              <button
+                onClick={() => setIsTaskModalOpen(true)}
+                className="w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-medium shadow-lg shadow-blue-500/30 hover:shadow-xl transition-all"
+              >
                 Add Task
               </button>
               <button className="w-full px-4 py-3 bg-white border-2 border-slate-200 text-slate-700 rounded-xl font-medium hover:bg-slate-50 transition-all">
@@ -226,6 +284,15 @@ const ProjectDetails = () => {
 
         </div>
       </div>
+
+      {/* Task Modal */}
+      <TaskModal
+        isOpen={isTaskModalOpen}
+        onClose={() => setIsTaskModalOpen(false)}
+        onSubmit={handleAddTask}
+        projectId={id}
+        assignees={assigneeNames}
+      />
 
     </div>
   );
