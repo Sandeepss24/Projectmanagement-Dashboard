@@ -7,8 +7,11 @@ import {
   FiBell,
   FiUsers,
   FiSettings,
-  FiMenu
+  FiMenu,
+  FiMoon,
+  FiSun
 } from "react-icons/fi";
+import { useTheme } from "../context/ThemeContext";
 
 const menu = [
   { name: "Dashboard", path: "/", icon: <FiHome /> },
@@ -22,6 +25,7 @@ const menu = [
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { isDarkMode, toggleTheme } = useTheme();
 
   return (
     <>
@@ -33,12 +37,22 @@ const Sidebar = () => {
           </div>
           <h2 className="font-bold text-slate-800 dark:text-slate-100 text-sm sm:text-base">Project Manager</h2>
         </div>
-        <button
-          onClick={() => setMobileOpen(true)}
-          className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors shrink-0"
-        >
-          <FiMenu size={22} className="text-slate-700 dark:text-slate-300" />
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors shrink-0"
+            title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
+          </button>
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors shrink-0"
+          >
+            <FiMenu size={22} className="text-slate-700 dark:text-slate-300" />
+          </button>
+        </div>
       </div>
 
       {mobileOpen && (

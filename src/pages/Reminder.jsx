@@ -1,6 +1,6 @@
 const Reminder = () => {
   return (
-    <h1>Reminder</h1>
+    <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-1 truncate">Reminder Page</h1>
   );
 };
 

@@ -7,6 +7,8 @@ import ProjectDetails from "./pages/ProjectDetails";
 import ProjectForm from "./components/ProjectForm";
 import Tasks from "./pages/Tasks";
 import Reminder from "./pages/Reminder";
+import Team from "./pages/Team";
+import Settings from "./pages/Settings"
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
 
         <Route path="projectform" element={<ProjectForm />} />
         <Route path="projectform/:id" element={<ProjectForm />} />
-        <Route path="reminder" element={<Reminder />} />
+        <Route path="reminders" element={<Reminder />} />
+        <Route path="team" element={<Team />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
     </Routes>
   );
