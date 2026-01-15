@@ -28,7 +28,7 @@ const ProjectForm = () => {
 
   const [errors, setErrors] = useState({});
 
-  // Load project data if editing
+  
   useEffect(() => {
     if (id) {
       const project = getProjectById(id);
@@ -82,7 +82,7 @@ const ProjectForm = () => {
     if (formData.assignees.length === 0)
       newErrors.assignees = "Select at least one team member";
 
-    // Validate tasks
+   
     if (formData.totalTasks && parseInt(formData.totalTasks) < 0) {
       newErrors.totalTasks = "Total tasks must be 0 or greater";
     }
@@ -121,14 +121,14 @@ const ProjectForm = () => {
   if (showSuccess) {
     return (
       <div className="w-full max-w-4xl mx-auto pt-16 lg:pt-0">
-        <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm p-12 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-            <FiCheckCircle className="text-green-600" size={32} />
+        <div className="bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-12 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full mb-4">
+            <FiCheckCircle className="text-green-600 dark:text-green-400" size={32} />
           </div>
-          <h2 className="text-2xl font-bold text-slate-800 mb-2">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-2">
             {isEditMode ? "Project Updated Successfully!" : "Project Created Successfully!"}
           </h2>
-          <p className="text-slate-600 mb-4">Redirecting to projects page...</p>
+          <p className="text-slate-600 dark:text-slate-400 mb-4">Redirecting to projects page...</p>
           <div className="w-12 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full mx-auto animate-pulse"></div>
         </div>
       </div>
@@ -141,28 +141,28 @@ const ProjectForm = () => {
       {/* Header */}
       <div className="flex items-center justify-between gap-4">
         <div className="min-w-0 flex-1">
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 mb-1 truncate">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-1 truncate">
             {isEditMode ? "Edit Project" : "Create New Project"}
           </h1>
-          <p className="text-slate-500 text-xs sm:text-sm">
+          <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm">
             {isEditMode ? "Update project details" : "Fill in the details to start a new project"}
           </p>
         </div>
         <button
           onClick={() => navigate(-1)}
-          className="p-2 hover:bg-slate-100 rounded-lg transition-colors shrink-0"
+          className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors shrink-0"
         >
-          <FiX size={24} className="text-slate-600" />
+          <FiX size={24} className="text-slate-600 dark:text-slate-400" />
         </button>
       </div>
 
       {/* Form */}
-      <div className="bg-white border border-slate-200 rounded-xl sm:rounded-2xl shadow-sm overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl sm:rounded-2xl shadow-sm overflow-hidden">
         <form onSubmit={handleSubmit} className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
 
-          {/* Project Name */}
+          
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
               Project Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -171,7 +171,7 @@ const ProjectForm = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter project name..."
-              className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 text-sm sm:text-base text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${errors.name ? "border-red-500" : "border-slate-200"
+              className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 text-sm sm:text-base text-slate-800 dark:text-slate-200 dark:bg-slate-700 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${errors.name ? "border-red-500" : "border-slate-200 dark:border-slate-600"
                 }`}
             />
             {errors.name && (
@@ -181,9 +181,9 @@ const ProjectForm = () => {
             )}
           </div>
 
-          {/* Description */}
+          
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
               Description
             </label>
             <textarea
@@ -192,15 +192,15 @@ const ProjectForm = () => {
               value={formData.description}
               onChange={handleChange}
               placeholder="Describe your project goals and objectives..."
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 border-slate-200 text-sm sm:text-base text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 border-slate-200 dark:border-slate-600 text-sm sm:text-base text-slate-800 dark:text-slate-200 dark:bg-slate-700 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
             />
           </div>
 
-          {/* Tasks Section */}
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                <FiList className="text-slate-500" size={16} />
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                <FiList className="text-slate-500 dark:text-slate-400" size={16} />
                 Total Tasks
               </label>
               <input
@@ -210,7 +210,7 @@ const ProjectForm = () => {
                 value={formData.totalTasks}
                 onChange={handleChange}
                 placeholder="0"
-                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 text-sm sm:text-base text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${errors.totalTasks ? "border-red-500" : "border-slate-200"
+                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 text-sm sm:text-base text-slate-800 dark:text-slate-200 dark:bg-slate-700 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${errors.totalTasks ? "border-red-500" : "border-slate-200 dark:border-slate-600"
                   }`}
               />
               {errors.totalTasks && (
@@ -221,8 +221,8 @@ const ProjectForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                <FiCheckCircle className="text-slate-500" size={16} />
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                <FiCheckCircle className="text-slate-500 dark:text-slate-400" size={16} />
                 Completed Tasks
               </label>
               <input
@@ -232,7 +232,7 @@ const ProjectForm = () => {
                 value={formData.completedTasks}
                 onChange={handleChange}
                 placeholder="0"
-                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 text-sm sm:text-base text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${errors.completedTasks ? "border-red-500" : "border-slate-200"
+                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 text-sm sm:text-base text-slate-800 dark:text-slate-200 dark:bg-slate-700 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${errors.completedTasks ? "border-red-500" : "border-slate-200 dark:border-slate-600"
                   }`}
               />
               {errors.completedTasks && (
@@ -243,11 +243,11 @@ const ProjectForm = () => {
             </div>
           </div>
 
-          {/* Dates */}
+         
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                <FiCalendar className="text-slate-500" size={16} />
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                <FiCalendar className="text-slate-500 dark:text-slate-400" size={16} />
                 Start Date
               </label>
               <input
@@ -255,13 +255,13 @@ const ProjectForm = () => {
                 name="startDate"
                 value={formData.startDate}
                 onChange={handleChange}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 border-slate-200 text-sm sm:text-base text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 border-slate-200 dark:border-slate-600 text-sm sm:text-base text-slate-800 dark:text-slate-200 dark:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                <FiCalendar className="text-slate-500" size={16} />
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                <FiCalendar className="text-slate-500 dark:text-slate-400" size={16} />
                 End Date
               </label>
               <input
@@ -269,7 +269,7 @@ const ProjectForm = () => {
                 name="endDate"
                 value={formData.endDate}
                 onChange={handleChange}
-                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 text-sm sm:text-base text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${errors.endDate ? "border-red-500" : "border-slate-200"
+                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 text-sm sm:text-base text-slate-800 dark:text-slate-200 dark:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${errors.endDate ? "border-red-500" : "border-slate-200 dark:border-slate-600"
                   }`}
               />
               {errors.endDate && (
@@ -280,10 +280,9 @@ const ProjectForm = () => {
             </div>
           </div>
 
-          {/* Assignees */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-3 flex items-center gap-2">
-              <FiUser className="text-slate-500" size={16} />
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
+              <FiUser className="text-slate-500 dark:text-slate-400" size={16} />
               Team Members <span className="text-red-500">*</span>
             </label>
             <div className="flex flex-wrap gap-2">
@@ -297,7 +296,7 @@ const ProjectForm = () => {
                     onClick={() => toggleAssignee(assignee)}
                     className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-lg sm:rounded-xl border-2 transition-all ${isSelected
                         ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-transparent shadow-md"
-                        : "bg-white text-slate-700 border-slate-200 hover:border-blue-500 hover:bg-blue-50"
+                      : "bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-600 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/30"
                       }`}
                   >
                     {assignee}
@@ -312,17 +311,17 @@ const ProjectForm = () => {
             )}
           </div>
 
-          {/* Manager, Status, Priority */}
+       
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                 Project Manager
               </label>
               <select
                 name="manager"
                 value={formData.manager}
                 onChange={handleChange}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 border-slate-200 text-sm sm:text-base text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all bg-white"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 border-slate-200 dark:border-slate-600 text-sm sm:text-base text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all bg-white dark:bg-slate-700"
               >
                 <option value="">Select Manager</option>
                 {managerOptions.map((m) => (
@@ -332,14 +331,14 @@ const ProjectForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                 Status
               </label>
               <select
                 name="status"
                 value={formData.status}
                 onChange={handleChange}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 border-slate-200 text-sm sm:text-base text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all bg-white"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 border-slate-200 dark:border-slate-600 text-sm sm:text-base text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all bg-white dark:bg-slate-700"
               >
                 <option value="Planned">Planned</option>
                 <option value="In Progress">In Progress</option>
@@ -349,15 +348,15 @@ const ProjectForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                <FiFlag className="text-slate-500" size={16} />
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                <FiFlag className="text-slate-500 dark:text-slate-400" size={16} />
                 Priority
               </label>
               <select
                 name="priority"
                 value={formData.priority}
                 onChange={handleChange}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 border-slate-200 text-sm sm:text-base text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all bg-white"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 border-slate-200 dark:border-slate-600 text-sm sm:text-base text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all bg-white dark:bg-slate-700"
               >
                 <option value="Low">Low</option>
                 <option value="Medium">Medium</option>
@@ -367,11 +366,11 @@ const ProjectForm = () => {
           </div>
 
           {/* Submit Buttons */}
-          <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-slate-200">
+          <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
             <button
               type="button"
               onClick={() => navigate(-1)}
-              className="px-4 sm:px-6 py-2.5 sm:py-3 bg-white border-2 border-slate-200 text-slate-700 rounded-lg sm:rounded-xl font-medium text-sm hover:bg-slate-50 transition-all"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 rounded-lg sm:rounded-xl font-medium text-sm hover:bg-slate-50 dark:hover:bg-slate-600 transition-all"
             >
               Cancel
             </button>

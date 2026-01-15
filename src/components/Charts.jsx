@@ -68,7 +68,7 @@ const Charts = ({ type = "bar" }) => {
         },
         tooltip: {
           backgroundColor: 'rgba(255, 255, 255, 0.95)',
-          titleColor: '#1e293b',
+          titleColor: 'rgba(30, 41, 59, 1)',
           bodyColor: '#475569',
           borderColor: '#e2e8f0',
           borderWidth: 1,

@@ -63,7 +63,6 @@ export const ProjectProvider = ({ children }) => {
         return projects.find(p => p.id === parseInt(id));
     };
 
-    // Task management functions
     const addTask = (projectId, taskData) => {
         setProjects(projects.map(p => {
             if (p.id === parseInt(projectId)) {

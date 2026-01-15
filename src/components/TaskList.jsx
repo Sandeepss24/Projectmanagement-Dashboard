@@ -11,8 +11,8 @@ const TaskList = ({ tasks, onDeleteTask, onUpdateTaskStatus }) => {
     return (
       <div className="text-center py-12">
         <div className="text-4xl mb-3">📝</div>
-        <h3 className="text-lg font-semibold text-slate-800 mb-1">No tasks yet</h3>
-        <p className="text-sm text-slate-500">Click "Add Task" to create your first task</p>
+            <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-1">No tasks yet</h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400">Click "Add Task" to create your first task</p>
       </div>
     );
   }
@@ -22,15 +22,15 @@ const TaskList = ({ tasks, onDeleteTask, onUpdateTaskStatus }) => {
       {tasks.map((task) => (
         <div
           key={task.id}
-          className="bg-white border border-slate-200 rounded-xl p-4 hover:shadow-md transition-all"
+              className="bg-white dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl p-4 hover:shadow-md transition-all"
         >
           <div className="flex items-start justify-between gap-3 mb-3">
             <div className="flex-1 min-w-0">
-              <h4 className="font-semibold text-slate-800 mb-1 truncate">
+                      <h4 className="font-semibold text-slate-800 dark:text-slate-100 mb-1 truncate">
                 {task.name}
               </h4>
               {task.description && (
-                <p className="text-sm text-slate-600 line-clamp-2">
+                          <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-2">
                   {task.description}
                 </p>
               )}
@@ -38,7 +38,7 @@ const TaskList = ({ tasks, onDeleteTask, onUpdateTaskStatus }) => {
             <div className="flex items-center gap-2 shrink-0">
               <button
                 onClick={() => onDeleteTask(task.id)}
-                className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                          className="p-2 text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-all"
                 title="Delete task"
               >
                 <FiTrash2 size={16} />
@@ -47,7 +47,7 @@ const TaskList = ({ tasks, onDeleteTask, onUpdateTaskStatus }) => {
           </div>
 
           <div className="flex items-center justify-between gap-3 flex-wrap">
-            <div className="flex items-center gap-2 text-sm text-slate-600">
+                  <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
               <FiUser size={14} />
               <span>{task.assignedUser}</span>
             </div>

@@ -5,6 +5,8 @@ import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
 import ProjectDetails from "./pages/ProjectDetails";
 import ProjectForm from "./components/ProjectForm";
+import Tasks from "./pages/Tasks";
+import Reminder from "./pages/Reminder";
 
 function App() {
   return (
@@ -13,10 +15,11 @@ function App() {
         <Route index element={<Dashboard />} />
         <Route path="projects" element={<Projects />} />
         <Route path="projects/:id" element={<ProjectDetails />} />
+        <Route path="tasks" element={<Tasks />} />
 
-        {/* Create and Edit Project Form */}
         <Route path="projectform" element={<ProjectForm />} />
         <Route path="projectform/:id" element={<ProjectForm />} />
+        <Route path="reminder" element={<Reminder />} />
       </Route>
     </Routes>
   );
